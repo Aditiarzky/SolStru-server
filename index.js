@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const projekRoutes = require('./routes/projek');
 const pesananRoutes = require('./routes/pesanan');
+const authRoutes = require('./routes/auth');
 const { pool, testConnection } = require('./db');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 
 app.use('/api/projek', projekRoutes);
 app.use('/api/pesanan', pesananRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the API!');
