@@ -44,11 +44,12 @@ router.post('/', async (req, res) => {
     lantai,
     pendukung,
     gaya_bangunan,
+    deskripsi
   } = req.body;
   try {
     const result = await req.pool.query(
-      `INSERT INTO projek (foto_pj, nama_pj, alamat_pj, jenis_layanan, luas_tanah, luas_bangunana, kamar_tidur, kamar_mandi, kamar_art, kapasitas_mobil, lantai, pendukung, gaya_bangunan)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      `INSERT INTO projek (foto_pj, nama_pj, alamat_pj, jenis_layanan, luas_tanah, luas_bangunana, kamar_tidur, kamar_mandi, kamar_art, kapasitas_mobil, lantai, pendukung, gaya_bangunan, deskripsi)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
        RETURNING *`,
       [
         foto_pj,
@@ -64,6 +65,7 @@ router.post('/', async (req, res) => {
         lantai,
         pendukung,
         gaya_bangunan,
+        deskripsi
       ]
     );
 
@@ -93,10 +95,11 @@ router.put('/:id', async (req, res) => {
     lantai,
     pendukung,
     gaya_bangunan,
+    deskripsi,
   } = req.body;
   try {
     const result = await req.pool.query(
-      `UPDATE projek SET foto_pj=$1, nama_pj=$2, alamat_pj=$3, jenis_layanan=$4, luas_tanah=$5, luas_bangunana=$6, kamar_tidur=$7, kamar_mandi=$8, kamar_art=$9, kapasitas_mobil=$10, lantai=$11, pendukung=$12, gaya_bangunan=$13 WHERE pjid=$14 RETURNING *`,
+      `UPDATE projek SET foto_pj=$1, nama_pj=$2, alamat_pj=$3, jenis_layanan=$4, luas_tanah=$5, luas_bangunana=$6, kamar_tidur=$7, kamar_mandi=$8, kamar_art=$9, kapasitas_mobil=$10, lantai=$11, pendukung=$12, gaya_bangunan=$13, deskripsi=$14 WHERE pjid=$15 RETURNING *`,
       [
         foto_pj,
         nama_pj,
@@ -111,6 +114,7 @@ router.put('/:id', async (req, res) => {
         lantai,
         pendukung,
         gaya_bangunan,
+        deskripsi,
         req.params.id,
       ]
     );

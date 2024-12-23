@@ -35,13 +35,13 @@ router.get('/:id', async (req, res) => {
 
 // Add an order
 router.post('/', async (req, res) => {
-  const { pjid, foto_ps, nama_ps, alamat_ps, jlayanan_ps, status_pesan } = req.body;
+  const { pjid, email, nama_ps, alamat_ps, jlayanan_ps, status_pesan } = req.body;
   try {
     const result = await req.pool.query(
-      `INSERT INTO pesanan (pjid, foto_ps, nama_ps, alamat_ps, jlayanan_ps, status_pesan)
+      `INSERT INTO pesanan (pjid, email, nama_ps, alamat_ps, jlayanan_ps, status_pesan)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [pjid, foto_ps, nama_ps, alamat_ps, jlayanan_ps, status_pesan]
+      [pjid, email, nama_ps, alamat_ps, jlayanan_ps, status_pesan]
     );
     res.status(201).json({ status: "success", message: 'Order added', data: result.rows[0] });
   } catch (err) {
@@ -54,11 +54,11 @@ router.post('/', async (req, res) => {
 
 // Update an order
 router.put('/:id', async (req, res) => {
-  const { pjid, foto_ps, nama_ps, alamat_ps, jlayanan_ps, status_pesan } = req.body;
+  const { pjid, email, nama_ps, alamat_ps, jlayanan_ps, status_pesan } = req.body;
   try {
     const result = await req.pool.query(
-      `UPDATE pesanan SET pjid=$1, foto_ps=$2, nama_ps=$3, alamat_ps=$4, jlayanan_ps=$5, status_pesan=$6 WHERE psid=$7 RETURNING *`,
-      [pjid, foto_ps, nama_ps, alamat_ps, jlayanan_ps, status_pesan, req.params.id]
+      `UPDATE pesanan SET pjid=$1, email=$2, nama_ps=$3, alamat_ps=$4, jlayanan_ps=$5, status_pesan=$6 WHERE psid=$7 RETURNING *`,
+      [pjid, email, nama_ps, alamat_ps, jlayanan_ps, status_pesan, req.params.id]
     );
     if (result.rows.length === 0)
         return res.status(404).json({
