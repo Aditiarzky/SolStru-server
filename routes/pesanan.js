@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
   try {
     const result = await req.pool.query('SELECT * FROM pesanan');
     res.json({
-        status: "success",
+        success: true,
         message: "Success get data",
         data: result.rows
     });;
@@ -21,13 +21,13 @@ router.get('/:id', async (req, res) => {
     const result = await req.pool.query('SELECT * FROM pesanan WHERE psid = $1', [req.params.id]);
     if (result.rows.length === 0) return res.status(404).json({ error: 'Order not found' });
     res.json({
-        status: "success",
+        success: true,
         message: "Success get data",
         data: result.rows[0]
     });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
@@ -43,10 +43,10 @@ router.post('/', async (req, res) => {
        RETURNING *`,
       [pjid, email, nama_ps, alamat_ps, jlayanan_ps, status_pesan]
     );
-    res.status(201).json({ status: "success", message: 'Order added', data: result.rows[0] });
+    res.status(201).json({ success: true, message: 'Order added', data: result.rows[0] });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
@@ -62,13 +62,13 @@ router.put('/:id', async (req, res) => {
     );
     if (result.rows.length === 0)
         return res.status(404).json({
-            status: "error",
+            success: false,
             message: "Order not found"
         });
-    res.json({ status: "success", message: 'Order edited', data: result.rows[0] });
+    res.json({ success: true, message: 'Order edited', data: result.rows[0] });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
@@ -80,13 +80,13 @@ router.delete('/:id', async (req, res) => {
     const result = await req.pool.query('DELETE FROM pesanan WHERE psid = $1 RETURNING *', [req.params.id]);
     if (result.rows.length === 0)
         return res.status(404).json({
-            status: "error",
+            success: false,
             message: "Order not found"
         });
-    res.json({ status: "success", message: 'Order deleted', data: result.rows[0] });
+    res.json({ success: true, message: 'Order deleted', data: result.rows[0] });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }

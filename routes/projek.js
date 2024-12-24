@@ -5,10 +5,10 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const result = await req.pool.query('SELECT * FROM projek');
-    res.json({ status: "success", message: 'Success get all data', data: result.rows });
+    res.json({ success: true, message: 'Success get all data', data: result.rows });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
@@ -19,10 +19,10 @@ router.get('/:id', async (req, res) => {
   try {
     const result = await req.pool.query('SELECT * FROM projek WHERE pjid = $1', [req.params.id]);
     if (result.rows.length === 0) return res.status(404).json({ error: 'Project not found' });
-    res.json({ status: "success", message: 'Success get data', data: result.rows[0] });
+    res.json({ success: true, message: 'Success get data', data: result.rows[0] });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
@@ -69,11 +69,11 @@ router.post('/', async (req, res) => {
       ]
     );
 
-    res.status(201).json({ status: "success", message: 'Project added', data: result.rows[0] });
+    res.status(201).json({ success: true, message: 'Project added', data: result.rows[0] });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
@@ -120,13 +120,13 @@ router.put('/:id', async (req, res) => {
     );
     if (result.rows.length === 0) 
         return res.status(404).json({
-            status: "error",
+            success: false,
             message: "project not found"
         });
-    res.json({ status: "success", message: 'Project Edited', data: result.rows[0] });
+    res.json({ success: true, message: 'Project Edited', data: result.rows[0] });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
@@ -140,7 +140,7 @@ router.delete('/:id', async (req, res) => {
     res.json({ message: 'Project deleted', project: result.rows[0] });
   } catch (err) {
     res.status(500).json({
-        status: "error",
+        success: false,
         message: err.message
     });
   }
