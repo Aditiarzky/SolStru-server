@@ -137,7 +137,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const result = await req.pool.query('DELETE FROM projek WHERE pjid = $1 RETURNING *', [req.params.id]);
     if (result.rows.length === 0) return res.status(404).json({ error: 'Project not found' });
-    res.json({ message: 'Project deleted', project: result.rows[0] });
+    res.json({ success: true, message: 'Project deleted', project: result.rows[0] });
   } catch (err) {
     res.status(500).json({
         success: false,
