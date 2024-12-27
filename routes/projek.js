@@ -4,7 +4,7 @@ const router = express.Router();
 // Get all projects
 router.get('/', async (req, res) => {
   try {
-    const result = await req.pool.query('SELECT * FROM projek');
+    const result = await req.pool.query('SELECT * FROM projek ORDER BY GREATEST(created_at) DESC');
     res.json({ success: true, message: 'Success get all data', data: result.rows });
   } catch (err) {
     res.status(500).json({

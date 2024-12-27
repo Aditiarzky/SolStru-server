@@ -4,7 +4,7 @@ const router = express.Router();
 // Get all orders
 router.get('/', async (req, res) => {
   try {
-    const result = await req.pool.query('SELECT * FROM pesanan');
+    const result = await req.pool.query('SELECT * FROM pesanan ORDER BY GREATEST(created_at, edited_at) DESC');
     res.json({
         success: true,
         message: "Success get data",
