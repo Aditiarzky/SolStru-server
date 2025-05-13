@@ -24,7 +24,7 @@ class NotificationController {
   
   static async tandaiDibaca(req, res) {
     const uid = req.user.id;
-    const id = parseInt(req.params.id);
+    const id = req.params.id == null ? null : parseInt(req.params.id);
 
     try {
       await NotificationService.tandaiDibaca(id, uid);
