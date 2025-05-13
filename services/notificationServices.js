@@ -18,7 +18,7 @@ class NotificationService {
   }
 
   static async tandaiDibaca(id, uid) {
-    if (id != null) {
+    if (id !== 0) {
       await pool.query(
         `UPDATE notification SET dibaca = TRUE WHERE id = $1`,
         [id]
