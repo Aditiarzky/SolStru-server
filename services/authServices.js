@@ -82,8 +82,19 @@ class AuthServices {
       res.status(400).json({success:false, message: "You're not logged in"})
     }
 
-    res.clearCookie("authToken");
-    res.clearCookie("refreshToken");
+    res.clearCookie("authToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
+      path: "/"
+    });
+    
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
+      path: "/"
+    });
     res.status(200).json({ success: true, message: "Logout successful" });
   }
 
