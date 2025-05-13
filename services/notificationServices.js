@@ -18,17 +18,21 @@ class NotificationService {
   }
 
   static async tandaiDibaca(id, uid) {
-    if(id !== null){
+    if (id != null) {
       await pool.query(
         `UPDATE notification SET dibaca = TRUE WHERE id = $1`,
         [id]
       );
+    } else if (uid) {
+      await pool.query(
+        `UPDATE notification SET dibaca = TRUE WHERE uid = $1`,
+        [uid]
+      );
+    } else {
+      throw new Error("Either 'id' or 'uid' must be provided.");
     }
-    await pool.query(
-      `UPDATE notification SET dibaca = TRUE WHERE uid = $1`,
-      [uid]
-    );
   }
+  
 
   static async hapus(id, uid) {
     await pool.query(
