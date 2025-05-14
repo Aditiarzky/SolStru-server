@@ -30,6 +30,7 @@ class ProjectService {
     let index = 1;
 
     for (const key in data) {
+      if (['edited_at', 'created_at', 'pjid'].includes(key)) continue;
       fields.push(`${key} = $${index}`);
       values.push(data[key]);
       index++;
