@@ -27,6 +27,7 @@ class OrderService {
     let index = 1;
 
     for (const key in data) {
+      if (['edited_at', 'created_at', 'psid'].includes(key)) continue;
       fields.push(`${key} = $${index}`);
       values.push(data[key]);
       index++;
