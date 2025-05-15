@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const pool = require("../db.js");
 
-const ACCESS_TOKEN_EXPIRES_IN = "1h";
+const ACCESS_TOKEN_EXPIRES_IN = "24h";
 const REFRESH_TOKEN_EXPIRES_IN_DAYS = 7;
 
 class AuthServices {
@@ -37,7 +37,7 @@ class AuthServices {
     res.cookie("authToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 15 * 60 * 1000,
+      maxAge: 24 * 60 * 60 * 100,
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
     });
 
@@ -127,7 +127,7 @@ class AuthServices {
       res.cookie("authToken", newAccessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 15 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 100,
         sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
       });
 

@@ -11,9 +11,9 @@ const userRoutes = require('./routes/userRoute');
 const pool = require('./db');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
-const allowedOrigins = ['http://localhost:5173', 'https://nama-domain-kamu.com'];
+const allowedOrigins = ['http://localhost:5173','http://localhost:5174', 'https://nama-domain-kamu.com'];
 
 app.use(cors({
   origin: function (origin, callback) {

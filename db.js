@@ -4,6 +4,10 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+pool.on('connect', (client) => {
+  client.query("SET TIME ZONE 'Asia/Jakarta';");
+});
+
 // Fungsi untuk memeriksa koneksi
 const testConnection = async () => {
   try {
