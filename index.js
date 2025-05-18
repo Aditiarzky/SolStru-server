@@ -13,7 +13,7 @@ const pool = require('./db');
 const app = express();
 const port = process.env.PORT || 3001;
 
-const allowedOrigins = ['http://localhost:5173','http://localhost:5174', 'https://nama-domain-kamu.com'];
+const allowedOrigins = ['http://localhost:5173','http://localhost:5174', 'https://solstru.ct.ws', 'http://solstru.ct.ws'];
 
 app.use(cors({
   origin: function (origin, callback) {
