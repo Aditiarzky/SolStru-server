@@ -1,4 +1,5 @@
 const AuthServices = require("../services/authServices.js");
+const { isEmailTaken } = require("../services/userServices.js");
 
 class AuthController {
     static async login(req, res) {
@@ -28,6 +29,11 @@ class AuthController {
         if (!email) throw new Error('Email wajib diisi');
         if (!alamat_usr) throw new Error('Alamat wajib diisi');
         if (!telepon) throw new Error('Telepon wajib diisi');
+
+        const emailExists = await isEmailTaken(email);
+        if (emailExists) {
+          return res.status(400).json({ success: false, message: "Email sudah digunakan" });
+        }
 
         const response = await AuthServices.register(name, password, email, alamat_usr, telepon);
         res.status(200).json(response)
